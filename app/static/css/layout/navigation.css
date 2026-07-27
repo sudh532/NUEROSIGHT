@@ -1,0 +1,315 @@
+/* Top Global Navigation Bar Layout & Theme Variable Binding */
+.top-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: rgba(22, 22, 30, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color, rgba(122, 162, 247, 0.2));
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+/* Brand Section */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  filter: drop-shadow(0 0 6px rgba(125, 207, 255, 0.4));
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-brand-title {
+  font-family: var(--font-sans, sans-serif);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  color: var(--text-primary, #c0caf5);
+  display: block;
+}
+
+.nav-brand-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: var(--accent-cyan, #7dcfff);
+  letter-spacing: 1.5px;
+}
+
+/* Status Pill */
+.nav-system-pill {
+  background: var(--bg-card, #16161e);
+  border: 1px solid var(--border-color, rgba(122, 162, 247, 0.2));
+  border-radius: 20px;
+  padding: 0.4rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.status-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: var(--state-safe, #9ece6a);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--state-safe, #9ece6a);
+  animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.nav-status-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--text-muted, #565f89);
+  letter-spacing: 1px;
+}
+
+/* Navigation Tabs */
+.nav-tab-group {
+  display: flex;
+  background: var(--bg-card, #16161e);
+  border: 1px solid var(--border-color, rgba(122, 162, 247, 0.2));
+  border-radius: 8px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.nav-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 1.25rem;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted, #565f89);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-tab-btn:hover {
+    color: var(--text-primary, #c0caf5);
+}
+
+.nav-tab-btn.is-active,
+.nav-tab-btn.active,
+.nav-tab-btn[aria-selected="true"] {
+    background: rgba(125, 207, 255, 0.12) !important;
+    border: 1px solid #7dcfff !important;
+    color: #7dcfff !important;
+    box-shadow: 0 0 12px rgba(125, 207, 255, 0.25) !important;
+    font-weight: 800;
+}
+
+.brand-title {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.brand-subtitle {
+  font-family: monospace;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  color: #7dcfff;
+  text-transform: uppercase;
+}
+
+/* 2. Center Cluster: Telemetry Status Capsule Pill */
+.nav-telemetry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.telemetry-status-pill {
+  background: rgba(36, 40, 59, 0.6);
+  border: 1px solid rgba(122, 162, 247, 0.15);
+  border-radius: 20px;
+  padding: 0.35rem 1rem;
+  font-size: 0.72rem;
+  font-family: monospace;
+  color: #a9b1d6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #9ece6a;
+  box-shadow: 0 0 6px #9ece6a;
+  animation: statusDotPulse 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+@keyframes statusDotPulse {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.25); opacity: 1; box-shadow: 0 0 10px #9ece6a; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+/* 3. Right Cluster: Controls & Action Items */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Standardized 36px Height Control Items */
+#audio-toggle-btn {
+  height: 36px;
+  padding: 0 12px;
+  background: rgba(36, 40, 59, 0.6);
+  border: 1px solid rgba(122, 162, 247, 0.2);
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.7rem;
+  color: var(--color-accent-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+#audio-toggle-btn:hover {
+  border-color: var(--color-accent-purple);
+}
+
+#settings-toggle-btn {
+  height: 36px;
+  padding: 0 12px;
+  background: rgba(36, 40, 59, 0.6);
+  border: 1px solid rgba(122, 162, 247, 0.2);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #a9b1d6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+#settings-toggle-btn:hover {
+  color: #ffffff;
+  border-color: var(--color-accent-cyan);
+}
+
+/* Segmented Control Track */
+.nav-tabs {
+  height: 36px;
+  background: rgba(22, 22, 30, 0.8);
+  border: 1px solid rgba(122, 162, 247, 0.15);
+  border-radius: 8px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+}
+
+.nav-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 1.25rem;
+  line-height: 1;
+  text-align: center;
+  vertical-align: middle;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted, #565f89);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab-btn:hover {
+  color: #ffffff;
+}
+
+.nav-tab-btn.active,
+.nav-tab-btn.is-active,
+.nav-tab-btn[aria-selected="true"] {
+  background: rgba(125, 207, 255, 0.12) !important;
+  border: 1px solid #7dcfff !important;
+  color: #7dcfff !important;
+  box-shadow: 0 0 12px rgba(125, 207, 255, 0.25) !important;
+  font-weight: 800;
+}
+
+/* Theme Icon Toggle 1:1 Aspect Ratio Button */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(36, 40, 59, 0.6);
+  border: 1px solid rgba(122, 162, 247, 0.15);
+  color: #ffffff;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-accent-purple);
+  color: var(--color-accent-purple);
+}
+
+/* Phase 3 Responsive Collapse */
+@media (max-width: 992px) {
+  .nav-telemetry {
+    display: none;
+  }
+}

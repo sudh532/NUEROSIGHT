@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEUROSIGHT | Fleet Administration</title>
+  <link rel="icon" type="image/png" href="/static/images/neurosight-logo.png">
+  
+  <!-- Typography System (Playfair Display for editorial headers & Inter for technical stats) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for Fleet Trends -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Modular Component Stylesheets -->
+  <link rel="stylesheet" href="css/design_tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/layout/navigation.css">
+  <link rel="stylesheet" href="css/layout/trends.css">
+
+  <style>
+    .admin-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: var(--space-lg) var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+      min-height: calc(100vh - 70px);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .kpi-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: var(--tracking-widest);
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .kpi-value {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .admin-main-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      .admin-main-grid {
+        grid-template-columns: 55fr 45fr;
+        gap: 48px;
+      }
+    }
+
+    .operator-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .operator-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .operator-count {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Command Header -->
+  <header class="header-hud">
+    <div class="brand-cluster" onclick="window.location.href='/'" style="cursor: pointer;">
+      <img src="/static/images/neurosight-logo.png" alt="NEUROSIGHT Logo" class="brand-logo-img">
+      <div class="brand-text-group">
+        <span class="brand-title">NEUROSIGHT</span>
+        <span class="brand-subtitle">DRUGGED EYE DETECTION</span>
+      </div>
+    </div>
+
+    <div class="runtime-stats">
+      FLEET MANAGEMENT PLATFORM // AUDITING SYSTEM
+    </div>
+
+    <div class="nav-controls">
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn" onclick="window.location.href='/'">DIAGNOSIS HUD</button>
+        <button class="nav-tab-btn active">FLEET ANALYTICS</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Administrative Content -->
+  <div class="admin-wrapper" style="margin-top: 80px;">
+    
+    <div>
+      <span class="section-label" style="margin-bottom: 4px;">SYSTEM REPORTING</span>
+      <h1 style="font-family: var(--font-serif); font-size: 2.2rem; font-weight: 700; color: var(--text-primary); margin: 0;">Fleet Analytics & Compliance Logs</h1>
+    </div>
+
+    <!-- KPI Summary Grid Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Total Screens Logged</div>
+        <div class="kpi-value" id="kpi-total-scans">--</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Anomaly Rate</div>
+        <div class="kpi-value" id="kpi-anomaly-rate">--</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-title">Mean Calibration Confidence</div>
+        <div class="kpi-value" id="kpi-mean-conf">--</div>
+      </div>
+    </div>
+
+    <!-- Two Column Dashboard Grid -->
+    <div class="admin-main-grid">
+      
+      <!-- Chart Column -->
+      <div class="chart-wrapper-card" style="min-height: 400px;">
+        <div class="chart-title-container">
+          <span class="chart-title">Diagnostic Category Breakdown</span>
+          <span class="gauge-title" style="font-size: 9px;">ACTIVE DEPLOYMENT METRICS</span>
+        </div>
+        <div class="canvas-container" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+          <canvas id="category-bar-canvas" style="max-height: 300px; max-width: 100%;"></canvas>
+        </div>
+      </div>
+
+      <!-- Operator Workloads Column -->
+      <div class="audit-log-card" style="padding: var(--space-md);">
+        <div class="chart-title-container" style="margin-bottom: 20px;">
+          <span class="chart-title">Anonymized Operator Telemetry</span>
+          <span class="gauge-title" style="font-size: 9px;">COMPLIANCE RUN COUNTS</span>
+        </div>
+        
+        <div id="operator-list-container" style="display: flex; flex-direction: column;">
+          <!-- Injected dynamically -->
+          <div style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--text-secondary); text-align: center; padding: 20px;">Loading metrics...</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Fetch aggregated statistics from GET /api/admin/metrics
+    async function loadAdminMetrics() {
+      // Basic auth headers matching supervisor parameters
+      const authHeader = 'Basic ' + btoa('admin:password123');
+      
+      try {
+        const response = await fetch('/api/admin/metrics', {
+          headers: { 'Authorization': authHeader }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Unauthorized supervisor access or server connection error.');
+        }
+        
+        const data = await response.json();
+        renderDashboard(data);
+      } catch (e) {
+        console.error(e);
+        document.getElementById('operator-list-container').innerHTML = `
+          <div style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--status-somatic); text-align: center; padding: 20px;">
+            ACCESS SECURED // SUPERVISOR AUTHENTICATION REQUIRED
+          </div>
+        `;
+      }
+    }
+
+    function renderDashboard(data) {
+      // KPI Updates
+      document.getElementById('kpi-total-scans').textContent = data.total_scans;
+      document.getElementById('kpi-mean-conf').textContent = `${(data.mean_confidence * 100).toFixed(0)}%`;
+      
+      // Calculate Anomaly Rate (Non-Normal categories / Total)
+      const normalCount = data.category_breakdown["Normal"] || 0;
+      const anomalyCount = data.total_scans - normalCount;
+      const rate = data.total_scans > 0 ? (anomalyCount / data.total_scans * 100).toFixed(1) : 0;
+      document.getElementById('kpi-anomaly-rate').textContent = `${rate}%`;
+
+      // Render Operator Lists
+      const opContainer = document.getElementById('operator-list-container');
+      opContainer.innerHTML = '';
+      
+      const opEntries = Object.entries(data.operator_activities).sort((a,b) => b[1] - a[1]);
+      if (opEntries.length === 0) {
+        opContainer.innerHTML = '<div style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--text-secondary); text-align: center; padding: 20px;">No screen logs cached.</div>';
+      } else {
+        opEntries.forEach(([opName, count]) => {
+          const row = document.createElement('div');
+          row.className = 'operator-row';
+          row.innerHTML = `
+            <span class="operator-name">${opName}</span>
+            <span class="operator-count">${count} scans</span>
+          `;
+          opContainer.appendChild(row);
+        });
+      }
+
+      // Render Chart.js breakdown plot (Minimalistic style, no grids, thin borders)
+      const ctx = document.getElementById('category-bar-canvas').getContext('2d');
+      
+      const labelMap = {
+        "Normal": "Normal / Safe",
+        "Chemical Narcotic Impairment": "Narcotic Impairment",
+        "Pathological Infection": "Pathological Infection",
+        "Neurological Trauma": "Neurological Trauma"
+      };
+
+      const categories = Object.keys(data.category_breakdown).map(k => labelMap[k] || k);
+      const counts = Object.values(data.category_breakdown);
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: categories,
+          datasets: [{
+            data: counts,
+            backgroundColor: [
+              'rgba(15, 23, 42, 0.05)',  // Slate background
+              'rgba(244, 63, 94, 0.1)',   // Reddish Narcotic
+              'rgba(59, 130, 246, 0.1)',  // Blueish Infection
+              'rgba(234, 179, 8, 0.1)'    // Yellowish Concussion
+            ],
+            borderColor: [
+              'rgba(15, 23, 42, 0.7)',
+              'rgba(244, 63, 94, 0.8)',
+              'rgba(59, 130, 246, 0.8)',
+              'rgba(234, 179, 8, 0.8)'
+            ],
+            borderWidth: 1.0,
+            barThickness: 24
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                font: { family: 'Inter', size: 9 },
+                color: 'rgba(15, 23, 42, 0.6)'
+              }
+            },
+            y: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                font: { family: 'JetBrains Mono', size: 9 },
+                color: 'rgba(15, 23, 42, 0.6)',
+                stepSize: 1
+              }
+            }
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAdminMetrics);
+  </script>
+</body>
+</html>

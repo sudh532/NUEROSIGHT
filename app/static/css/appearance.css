@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* Baseline CSS Root Fallbacks */
+:root {
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Font Selector States */
+[data-font="jetbrains"] { --font-mono: 'JetBrains Mono', monospace; }
+[data-font="fira-code"] { --font-mono: 'Fira Code', monospace; }
+[data-font="space-grotesk"] { --font-sans: 'Space Grotesk', sans-serif; }
+[data-font="inter"] { --font-sans: 'Inter', sans-serif; }
+
+/* Theme Palette 1: Tokyo Night (Default) */
+:root, [data-theme="tokyo-night"] {
+    --bg-primary: #1a1b26;
+    --bg-surface: #24283b;
+    --bg-card: #1f2335;
+    --border-color: rgba(122, 162, 247, 0.2);
+    --text-primary: #c0caf5;
+    --text-muted: #565f89;
+    --accent-cyan: #7dcfff;
+    --accent-purple: #bb9af7;
+    --state-safe: #9ece6a;
+    --state-alert: #f7768e;
+}
+
+/* Theme Palette 2: Catppuccin Macchiato */
+[data-theme="catppuccin"] {
+    --bg-primary: #24273a;
+    --bg-surface: #1e2030;
+    --bg-card: #363a4f;
+    --border-color: rgba(138, 173, 244, 0.25);
+    --text-primary: #cad3f5;
+    --text-muted: #8087a2;
+    --accent-cyan: #8aadf4;
+    --accent-purple: #f5bde6;
+    --state-safe: #a6da95;
+    --state-alert: #ed8796;
+}
+
+/* Theme Palette 3: Nord Dark */
+[data-theme="nord"] {
+    --bg-primary: #2e3440;
+    --bg-surface: #3b4252;
+    --bg-card: #434c5e;
+    --border-color: rgba(136, 192, 208, 0.25);
+    --text-primary: #eceff4;
+    --text-muted: #d8dee9;
+    --accent-cyan: #88c0d0;
+    --accent-purple: #b48ead;
+    --state-safe: #a3be8c;
+    --state-alert: #bf616a;
+}
+
+/* Theme Palette 4: Cyber Amber */
+[data-theme="cyber-amber"] {
+    --bg-primary: #120e00;
+    --bg-surface: #1f1800;
+    --bg-card: #2a2100;
+    --border-color: rgba(255, 170, 0, 0.3);
+    --text-primary: #ffeaad;
+    --text-muted: #8c732b;
+    --accent-cyan: #ffb700;
+    --accent-purple: #ff8800;
+    --state-safe: #55ff55;
+    --state-alert: #ff3333;
+}
+
+/* Bind System Typography Rules to CSS Variables */
+body, input, button, select {
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    background-color: var(--bg-primary, #1a1b26) !important;
+    color: var(--text-primary, #c0caf5) !important;
+}
+
+/* Global Page Background */
+body {
+    background-color: var(--bg-primary, #1a1b26) !important;
+    color: var(--text-primary, #c0caf5) !important;
+    font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+/* Main Cards & Sections (Header, Section 01, Section 02) */
+.main-app-header,
+.ingress-panel,
+.telemetry-panel,
+.card-container,
+.panel,
+#diagnosis-view > section,
+#view-tab-diagnosis > section {
+    background-color: var(--bg-surface, #24283b) !important;
+    border-color: var(--border-color, rgba(122, 162, 247, 0.2)) !important;
+    color: var(--text-primary, #c0caf5) !important;
+}
+
+/* Dropzone & Inner Input Viewports */
+.viewfinder-viewport,
+.meta-input-wrapper,
+.hud-status-badge {
+    background-color: var(--bg-card, #16161e) !important;
+    border-color: var(--border-color, rgba(122, 162, 247, 0.2)) !important;
+}
+
+/* Monospace Typography Elements */
+.panel-num,
+.panel-title,
+.meta-label,
+.hud-badge-val,
+.metric-title,
+.btn-hud-primary,
+.panel-id-tag,
+.input-hud-text,
+code, pre {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+}
+
+/* Settings Picker Grid Component Rules */
+.appearance-group {
+    margin-bottom: 1.5rem;
+}
+
+.appearance-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.picker-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+/* 1. Top Navbar View Tabs (DIAGNOSIS vs ARCHIVES) */
+.nav-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 1.25rem;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted, #565f89);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-tab-btn:hover {
+    color: var(--text-primary, #c0caf5);
+}
+
+.nav-tab-btn.is-active,
+.nav-tab-btn.active,
+.nav-tab-btn[aria-selected="true"] {
+    background: rgba(125, 207, 255, 0.12) !important;
+    border: 1px solid #7dcfff !important;
+    color: #7dcfff !important;
+    box-shadow: 0 0 12px rgba(125, 207, 255, 0.25) !important;
+    font-weight: 800;
+}
+
+/* 2. System Configuration Option Buttons (Sensitivity, Fonts, Light Profiles) */
+.picker-option-btn,
+.segmented-btn,
+.sensitivity-pill-btn,
+.segment-btn {
+    background: var(--bg-card, #16161e);
+    border: 1px solid var(--border-color, rgba(122, 162, 247, 0.2));
+    color: var(--text-primary, #c0caf5);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.picker-option-btn:hover,
+.segmented-btn:hover,
+.sensitivity-pill-btn:hover,
+.segment-btn:hover {
+    border-color: var(--accent-cyan, #7dcfff);
+}
+
+.picker-option-btn.is-active,
+.picker-option-btn.active,
+.picker-option-btn:checked,
+.segmented-btn.is-active,
+.segmented-btn.active,
+.sensitivity-pill-btn.is-active,
+.sensitivity-pill-btn.active,
+.segment-btn.is-active,
+.segment-btn.active {
+    background: rgba(125, 207, 255, 0.18) !important;
+    border: 1.5px solid var(--accent-cyan, #7dcfff) !important;
+    color: var(--accent-cyan, #7dcfff) !important;
+    box-shadow: inset 0 0 10px rgba(125, 207, 255, 0.2), 0 0 12px rgba(125, 207, 255, 0.3) !important;
+    font-weight: 800;
+}
+
+/* 3. Radio Option Cards (Theme Palette) */
+.theme-radio-card {
+    border: 1px solid var(--border-color, rgba(122, 162, 247, 0.2));
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    background: var(--bg-surface, #24283b);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-radio-card.is-active,
+.theme-radio-card.active,
+.theme-radio-card:has(input:checked) {
+    border: 2px solid var(--accent-cyan, #7dcfff) !important;
+    background: rgba(125, 207, 255, 0.1) !important;
+    box-shadow: 0 0 12px rgba(125, 207, 255, 0.25) !important;
+}
+
+.preview-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: inline-block;
+}

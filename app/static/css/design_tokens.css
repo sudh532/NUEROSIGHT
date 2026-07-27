@@ -1,0 +1,100 @@
+/* Tokyo Night Deep Design Tokens & Typography Architecture (design1.md Phase 1) */
+:root {
+  /* Base Surfaces */
+  --bg-viewport: #1a1b26;
+  --bg-surface-card: #24283b;
+  --bg-surface-elevated: #1f2335;
+  --bg-surface-input: #16161e;
+
+  --color-bg-base: #1a1b26;
+  --color-bg-surface: #24283b;
+  --glass-border: rgba(122, 162, 247, 0.15);
+  --glass-bg: rgba(36, 40, 59, 0.5);
+
+  /* Borders & Separators */
+  --border-subtle: rgba(122, 162, 247, 0.12);
+  --border-medium: rgba(122, 162, 247, 0.22);
+  --border-focus: rgba(122, 162, 247, 0.50);
+
+  /* Status & Accent Lighting */
+  --color-accent-cyan: #7dcfff;
+  --color-accent-purple: #bb9af7;
+  --color-accent-blue: #7aa2f7;
+  --color-accent-red: #f7768e;
+  --color-status-alert: #f7768e;
+  --color-status-amber: #e0af68;
+  --color-status-safe: #9ece6a;
+
+  /* Typography System */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace;
+  --font-serif: "Playfair Display", Georgia, serif;
+
+  /* Text Colors */
+  --text-primary: #c0caf5;
+  --text-secondary: #a9b1d6;
+  --text-muted: #565f89;
+  --text-bright: #ffffff;
+  --color-text-primary: #c0caf5;
+  --color-text-muted: #565f89;
+
+  /* Elevation & Glow Shadows */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-alert-glow: 0 8px 30px rgba(247, 118, 142, 0.22), 0 0 12px rgba(247, 118, 142, 0.15);
+  --shadow-safe-glow: 0 8px 30px rgba(125, 207, 255, 0.22), 0 0 12px rgba(125, 207, 255, 0.15);
+
+  /* Radii & Spacing */
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --space-unit: 1.5rem; /* 24px standardized padding */
+  --spacing-unit: 8px;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+
+  /* Animation Curves */
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Structural Compatibility Mapping */
+  --bg-primary: var(--bg-viewport);
+  --bg-surface: var(--glass-bg);
+  --border-color: var(--border-medium);
+
+  --status-safe: var(--color-accent-cyan);
+  --status-impairment: var(--color-accent-red);
+  --status-pathological: var(--color-accent-blue);
+  --status-somatic: var(--color-accent-purple);
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.05em;
+  --tracking-widest: 0.15em;
+}
+
+[data-theme="dark"], [data-theme="light"] {
+  --bg-primary: var(--bg-viewport);
+  --bg-surface: var(--glass-bg);
+  --border-color: var(--border-medium);
+  --text-primary: var(--text-primary);
+  --text-secondary: #a9b1d6;
+  --text-muted: var(--text-muted);
+}
+
+/* Base Transition & Reset System */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Sentence-Case Paragraph Descriptions Rule */
+.verdict-description, .panel-notice, .metric-desc {
+  font-family: var(--font-sans) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.55 !important;
+  text-transform: none !important;
+  color: var(--text-secondary) !important;
+}
+

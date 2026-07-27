@@ -1,0 +1,222 @@
+/* PHASE 2: THE ATMOSPHERIC BACKGROUND & GPU LIGHTING */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient GPU Light Node 1 (Top Left - Purple) */
+body::before {
+  content: '';
+  position: fixed;
+  top: -120px;
+  left: -120px;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, var(--color-accent-purple) 0%, rgba(187, 154, 247, 0) 70%);
+  filter: blur(120px);
+  opacity: 0.15;
+  transform: translateZ(0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient GPU Light Node 2 (Bottom Right - Blue) */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -120px;
+  right: -120px;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, var(--color-accent-blue) 0%, rgba(122, 162, 247, 0) 70%);
+  filter: blur(120px);
+  opacity: 0.15;
+  transform: translateZ(0);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Custom Tokyo Night Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-purple);
+}
+
+/* Compliance Report Preview Modal (edit3.md Phase 2) */
+.report-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-smooth);
+  z-index: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.report-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.report-modal-container {
+  width: 720px;
+  max-width: 95vw;
+  max-height: 90vh;
+  background: #1a1b26;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.report-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(26, 27, 38, 0.8);
+}
+
+.report-brand-title {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent-purple);
+}
+
+.report-meta-hash {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+
+.modal-close-icon {
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.report-tab-bar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(36, 40, 59, 0.5);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.report-tab-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.report-tab-btn.active {
+  background: var(--color-bg-surface);
+  border-color: var(--color-accent-purple);
+  color: var(--color-accent-purple);
+}
+
+.report-sheet-view, .report-json-view {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.report-json-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent-cyan);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.report-modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: rgba(26, 27, 38, 0.9);
+}
+
+/* Print Stylesheet Overrides (edit3.md Phase 4) */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #report-modal-backdrop,
+  #report-modal-container,
+  #report-sheet-view,
+  #report-sheet-view * {
+    visibility: visible;
+  }
+  #report-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: #ffffff !important;
+    padding: 0;
+  }
+  #report-modal-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .report-modal-header,
+  .report-tab-bar,
+  .report-modal-footer,
+  .modal-close-icon {
+    display: none !important;
+  }
+  .report-sheet-view {
+    color: #000000 !important;
+  }
+  .report-sheet-view * {
+    color: #000000 !important;
+  }
+}

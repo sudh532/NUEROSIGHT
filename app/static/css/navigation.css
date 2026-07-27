@@ -1,0 +1,38 @@
+/* Top Navigation Active State & Layout Stylesheet */
+@import url('layout/navigation.css');
+
+/* 1. Top Navbar View Tabs (DIAGNOSIS vs ARCHIVES) */
+.nav-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 1.25rem;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-muted, #565f89);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-tab-btn:hover {
+    color: var(--text-primary, #c0caf5);
+}
+
+.nav-tab-btn.is-active,
+.nav-tab-btn.active,
+.nav-tab-btn[aria-selected="true"] {
+    background: rgba(125, 207, 255, 0.12) !important;
+    border: 1px solid #7dcfff !important;
+    color: #7dcfff !important;
+    box-shadow: 0 0 12px rgba(125, 207, 255, 0.25) !important;
+    font-weight: 800;
+}

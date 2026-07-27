@@ -1,0 +1,439 @@
+/* ================================================================================
+ * BIOMETRIC TELEMETRY & IMPAIRMENT DIAGNOSTIC PANEL STYLING (updatev1.md)
+ * Tokyo Night High-Density 3-Column Architecture & Conditional States
+ * ================================================================================ */
+
+.telemetry-outer-card,
+.telemetry-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  opacity: 1;
+  position: relative;
+  overflow: hidden;
+  background: #24283b;
+  border: 1px solid rgba(122, 162, 247, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: border-color 0.4s var(--ease-smooth),
+              box-shadow 0.4s var(--ease-smooth);
+}
+
+/* Pulsing Status Dot for Idle Mode */
+.standby-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent-cyan);
+  box-shadow: 0 0 8px var(--color-accent-cyan);
+  animation: standby-pulse 3s ease-in-out infinite;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+@keyframes standby-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+    box-shadow: 0 0 4px var(--color-accent-cyan);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 12px var(--color-accent-cyan);
+  }
+}
+
+/* Ambient Radar Standby Visual Overlay */
+.radar-standby-overlay {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 220px;
+  height: 220px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-smooth);
+  z-index: 1;
+}
+
+.radar-svg {
+  width: 100%;
+  height: 100%;
+  animation: standby-radar-breath 4s ease-in-out infinite;
+}
+
+.radar-sweep-sector {
+  transform-origin: 100px 100px;
+  animation: radar-sweep-spin 10s linear infinite;
+}
+
+@keyframes standby-radar-breath {
+  0%, 100% { opacity: 0.25; transform: scale(0.95); }
+  50% { opacity: 0.55; transform: scale(1.03); }
+}
+
+@keyframes radar-sweep-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* State-Driven Panel Modes */
+.telemetry-panel.is-idle .radar-standby-overlay {
+  opacity: 1;
+}
+
+.telemetry-panel.is-idle .radial-track {
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-dasharray: 4 4;
+}
+
+.telemetry-panel.is-idle .radial-fill {
+  stroke-dashoffset: 188.5 !important;
+  opacity: 0.15;
+}
+
+.telemetry-panel.is-processing {
+  border-color: var(--color-accent-purple) !important;
+  box-shadow: 0 0 15px rgba(187, 154, 247, 0.25) !important;
+}
+
+/* SUBSTANCE DETECTED (RED ALERT STATE) */
+.telemetry-panel.state-impaired,
+.telemetry-panel.state-critical {
+  border: 2px solid #f7768e !important;
+  box-shadow: 0 0 25px rgba(247, 118, 142, 0.35), inset 0 0 15px rgba(247, 118, 142, 0.15) !important;
+}
+
+.telemetry-panel.state-impaired .verdict-title,
+.telemetry-panel.state-critical .verdict-title,
+.telemetry-panel.state-impaired .verdict-header,
+.telemetry-panel.state-critical .verdict-header {
+  color: #f7768e !important;
+  text-shadow: 0 0 12px rgba(247, 118, 142, 0.4);
+}
+
+/* NO SUBSTANCE DETECTED (GREEN SAFE STATE) */
+.telemetry-panel.state-safe {
+  border: 2px solid #9ece6a !important;
+  box-shadow: 0 0 25px rgba(158, 206, 106, 0.35), inset 0 0 15px rgba(158, 206, 106, 0.15) !important;
+}
+
+.telemetry-panel.state-safe .verdict-title,
+.telemetry-panel.state-safe .verdict-header {
+  color: #9ece6a !important;
+  text-shadow: 0 0 12px rgba(158, 206, 106, 0.4);
+}
+
+/* STANDBY NEUTRAL STATE */
+.telemetry-panel.state-standby {
+  border: 1px solid rgba(122, 162, 247, 0.2) !important;
+  box-shadow: none !important;
+}
+
+.telemetry-panel.state-standby .verdict-title,
+.telemetry-panel.state-standby .verdict-header {
+  color: #7dcfff !important;
+}
+
+/* Panel Header Row & Export PDF Button */
+.panel-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(122, 162, 247, 0.12);
+}
+
+.btn-icon-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(122, 162, 247, 0.12);
+  border: 1px solid rgba(122, 162, 247, 0.3);
+  color: #7dcfff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-icon-action:hover {
+  background: rgba(125, 207, 255, 0.22);
+  border-color: #7dcfff;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(125, 207, 255, 0.25);
+}
+
+/* Verdict Block & Badges */
+.verdict-block,
+.verdict-banner-container {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s var(--ease-smooth),
+              transform 0.5s var(--ease-smooth);
+}
+
+.verdict-header,
+.verdict-title {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+  transition: color 0.4s var(--ease-smooth);
+}
+
+.verdict-description,
+.verdict-summary {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: #9aa5ce;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.verdict-badges-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.status-badge {
+  background: rgba(22, 22, 30, 0.7);
+  border: 1px solid rgba(122, 162, 247, 0.2);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #a9b1d6;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-badge .badge-val {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Enriched 3-Column Metric Cards Grid Architecture */
+.metrics-stack,
+.gauges-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.metric-card,
+.gauge-card {
+  background: #1f2335;
+  border: 1px solid rgba(122, 162, 247, 0.15);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  display: grid;
+  grid-template-columns: 100px minmax(200px, 1fr) 200px;
+  gap: 1.25rem;
+  align-items: center;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.metric-card:hover,
+.gauge-card:hover {
+  border-color: rgba(122, 162, 247, 0.35);
+  background: rgba(31, 35, 53, 0.85);
+}
+
+.metric-col-gauge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radial-gauge-wrapper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radial-gauge-svg {
+  width: 90px;
+  height: 90px;
+  transform: rotate(135deg);
+}
+
+.radial-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.radial-fill {
+  fill: none;
+  stroke: var(--color-accent-cyan);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 188.5;
+  stroke-dashoffset: 188.5;
+  transition: stroke-dashoffset 0.8s var(--ease-smooth), stroke 0.5s var(--ease-smooth);
+}
+
+.radial-center-readout {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.radial-value-text,
+.gauge-center-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-bright, #ffffff);
+}
+
+.metric-col-spectrum {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metric-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metric-title,
+.gauge-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #c0caf5;
+  text-transform: uppercase;
+}
+
+.metric-status-tag,
+.metric-sublabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-accent-cyan);
+}
+
+/* Spectrum Bar Track */
+.spectrum-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.spectrum-track {
+  position: relative;
+  height: 8px;
+  border-radius: 4px;
+  background: #16161e;
+  display: flex;
+  overflow: visible;
+  margin-top: 0.4rem;
+}
+
+.spectrum-zone {
+  height: 100%;
+}
+
+.spectrum-zone.zone-normal { flex: 0.3; background: rgba(158, 206, 106, 0.35); }
+.spectrum-zone.zone-elevated { flex: 0.3; background: rgba(224, 175, 104, 0.35); }
+.spectrum-zone.zone-critical { flex: 0.4; background: rgba(247, 118, 142, 0.35); }
+
+.spectrum-pointer {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 16px;
+  background: #ffffff;
+  box-shadow: 0 0 8px #7dcfff;
+  transition: left 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+}
+
+.pointer-head {
+  position: absolute;
+  top: -4px;
+  left: -3px;
+  width: 8px;
+  height: 8px;
+  background: #7dcfff;
+  border-radius: 50%;
+}
+
+.spectrum-labels-row {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: #565f89;
+}
+
+/* Column 3: Biomarker Sub-Data Details Box */
+.metric-col-details {
+  background: rgba(22, 22, 30, 0.7);
+  border: 1px solid rgba(122, 162, 247, 0.12);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+}
+
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+}
+
+.detail-key {
+  color: #565f89;
+}
+
+.detail-val {
+  color: #7dcfff;
+  font-weight: 600;
+}
+
+/* Corporate Regulatory Legal Footer block */
+.regulatory-footer,
+.panel-notice-footer {
+  margin-top: var(--space-md);
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--glass-border);
+  padding-top: var(--space-xs);
+}

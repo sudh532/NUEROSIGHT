@@ -1,0 +1,540 @@
+/* Archival Trends Timeline Layout CSS - Tokyo Night Profile (edit2.md) */
+
+.trends-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.trends-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+@media (min-width: 1024px) {
+  .trends-grid {
+    grid-template-columns: 1.5fr 1fr;
+  }
+}
+
+.chart-wrapper-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: var(--space-md);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+.chart-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: var(--space-xs);
+}
+
+.chart-title {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Quick Range Selector Filter Pills (edit2.md Phase 2) */
+.range-select-bar {
+  display: flex;
+  gap: 6px;
+  background: rgba(26, 27, 38, 0.6);
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+.range-pill-btn {
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.range-pill-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.range-pill-btn.is-active {
+  background: var(--color-bg-surface);
+  color: var(--color-accent-purple);
+  box-shadow: 0 0 10px rgba(187, 154, 247, 0.3);
+}
+
+/* Dataset Curve Toggle Legend Pills (edit2.md Phase 2) */
+.dataset-legend-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.legend-toggle-btn {
+  background: rgba(36, 40, 59, 0.5);
+  border: 1px solid var(--glass-border);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.legend-toggle-btn.is-hidden {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.legend-color-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Custom Frosted Glass Chart Tooltip Card (edit2.md Phase 2) */
+.chart-tooltip-card {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(26, 27, 38, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-accent-purple);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-primary);
+  z-index: 50;
+  transition: opacity 0.2s var(--ease-smooth);
+}
+
+.canvas-container {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Archives Table Log List & Filter Bar (edit2.md Phase 3) */
+.audit-log-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.table-filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.table-filter-pill {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.table-filter-pill:hover {
+  color: var(--color-text-primary);
+}
+
+.table-filter-pill.active {
+  background: var(--color-bg-surface);
+  border-color: var(--color-accent-purple);
+  color: var(--color-accent-purple);
+  box-shadow: 0 0 8px rgba(187, 154, 247, 0.25);
+}
+
+.audit-table-wrapper {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.audit-table th {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.audit-table td {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-text-primary);
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.audit-table tr {
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease-smooth);
+}
+
+.audit-table tr:hover td {
+  background: rgba(122, 162, 247, 0.08);
+}
+
+/* Micro Status Pill */
+.status-pill {
+  display: inline-block;
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.badge-verdict {
+  padding: 0.25rem 0.65rem;
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.badge-impairment {
+  background: rgba(247, 118, 142, 0.15);
+  border: 1px solid #f7768e;
+  color: #f7768e;
+}
+
+.badge-cleared {
+  background: rgba(158, 206, 106, 0.15);
+  border: 1px solid #9ece6a;
+  color: #9ece6a;
+}
+
+.status-pill.safe {
+  background: rgba(125, 207, 255, 0.1);
+  color: var(--color-accent-cyan);
+  border: 1px solid rgba(125, 207, 255, 0.25);
+}
+
+.status-pill.impairment {
+  background: rgba(247, 118, 142, 0.1);
+  color: var(--color-accent-red);
+  border: 1px solid rgba(247, 118, 142, 0.25);
+}
+
+.status-pill.pathological {
+  background: rgba(122, 162, 247, 0.1);
+  color: var(--color-accent-blue);
+  border: 1px solid rgba(122, 162, 247, 0.25);
+}
+
+.status-pill.somatic {
+  background: rgba(187, 154, 247, 0.1);
+  color: var(--color-accent-purple);
+  border: 1px solid rgba(187, 154, 247, 0.25);
+}
+
+/* Auth Config Menu */
+.auth-panel {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.auth-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent-cyan);
+  box-shadow: 0 0 8px var(--color-accent-cyan);
+}
+
+.auth-status-dot.error {
+  background: var(--color-accent-red);
+  box-shadow: 0 0 8px var(--color-accent-red);
+}
+
+/* Interactive Inspection Side Drawer Modal (edit2.md Phase 3) */
+.inspection-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-smooth);
+  z-index: 200;
+}
+
+.inspection-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inspection-drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 480px;
+  max-width: 90vw;
+  height: 100vh;
+  background: #1a1b26;
+  border-left: 1px solid var(--glass-border);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  transform: translateX(100%);
+  transition: transform 0.4s var(--ease-smooth);
+  z-index: 201;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inspection-drawer-backdrop.is-open .inspection-drawer-panel {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 12px;
+}
+
+.drawer-title {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-accent-purple);
+}
+
+.drawer-close-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-primary);
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-close-btn:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
+/* Bulk Purge Action Button (.btn-danger) */
+.btn-danger {
+  border: 1px solid #f7768e;
+  background: rgba(247, 118, 142, 0.12);
+  color: #f7768e;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.btn-danger:hover {
+  background: rgba(247, 118, 142, 0.25);
+  box-shadow: 0 0 12px rgba(247, 118, 142, 0.45);
+  transform: scale(1.02);
+}
+
+/* Delete Log Button & Confirmation Modal Styles (delete_log.md) */
+.btn-delete-log {
+  background: rgba(247, 118, 142, 0.1);
+  border: 1px solid rgba(247, 118, 142, 0.25);
+  color: var(--color-accent-red);
+  padding: 3px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.btn-delete-log:hover {
+  background: rgba(247, 118, 142, 0.25);
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 10px rgba(247, 118, 142, 0.4);
+  transform: scale(1.05);
+}
+
+.btn-purge-record {
+  background: rgba(247, 118, 142, 0.15);
+  border: 1px solid var(--color-accent-red);
+  color: var(--color-accent-red);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.btn-purge-record:hover {
+  background: rgba(247, 118, 142, 0.3);
+  box-shadow: 0 0 15px rgba(247, 118, 142, 0.4);
+}
+
+/* Delete Confirmation Modal Backdrop & Container */
+.delete-confirm-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 16, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-smooth);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.delete-confirm-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.delete-confirm-modal-container {
+  background: rgba(26, 27, 38, 0.95);
+  border: 1px solid var(--color-accent-red);
+  box-shadow: 0 0 40px rgba(247, 118, 142, 0.25);
+  border-radius: var(--radius-md);
+  width: 440px;
+  max-width: 95vw;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: scale(0.95);
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.delete-confirm-modal-backdrop.is-open .delete-confirm-modal-container {
+  transform: scale(1);
+}
+
+.delete-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(247, 118, 142, 0.25);
+  padding-bottom: 10px;
+}
+
+.delete-modal-title {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent-red);
+}
+
+.delete-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.delete-modal-close:hover {
+  color: var(--color-accent-red);
+}
+
+.delete-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 12px;
+}
+
+.btn-modal-cancel {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--color-text-muted);
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-modal-cancel:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-text-primary);
+}
+
+.btn-modal-confirm {
+  background: var(--color-accent-red);
+  border: 1px solid var(--color-accent-red);
+  color: #1a1b26;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(247, 118, 142, 0.4);
+}
+
+.btn-modal-confirm:hover {
+  background: #ff859b;
+}
+

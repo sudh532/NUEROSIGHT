@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+pydantic
+sqlalchemy
+jinja2
+numpy
+opencv-python-headless
+mediapipe
+torch
+torchvision
+lightgbm
+scikit-learn
+Pillow

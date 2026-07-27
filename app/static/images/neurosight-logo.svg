@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Metallic Bevel Gradients -->
+    <linearGradient id="metal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f1f5f9" />
+      <stop offset="25%" stop-color="#94a3b8" />
+      <stop offset="50%" stop-color="#cbd5e1" />
+      <stop offset="75%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <radialGradient id="metal-rim" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="#1e293b" />
+      <stop offset="85%" stop-color="#94a3b8" />
+      <stop offset="95%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </radialGradient>
+
+    <radialGradient id="iris-bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#082f49" />
+      <stop offset="60%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+
+    <!-- Cyan Iris Glow Filter -->
+    <filter id="cyan-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Circular Text Paths -->
+    <path id="text-path-top" d="M 85,250 A 165,165 0 1,1 415,250" fill="none" />
+    <path id="text-path-bottom" d="M 415,250 A 165,165 0 1,1 85,250" fill="none" />
+  </defs>
+
+  <!-- Outer Dark Surface Glow -->
+  <circle cx="250" cy="250" r="235" fill="none" stroke="#7dcfff" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.3" />
+
+  <!-- Main Metallic Outer Ring -->
+  <circle cx="250" cy="250" r="225" fill="url(#metal-rim)" stroke="url(#metal-grad)" stroke-width="6" />
+
+  <!-- Metallic Inner Inset Bevel -->
+  <circle cx="250" cy="250" r="175" fill="url(#iris-bg)" stroke="url(#metal-grad)" stroke-width="4" />
+
+  <!-- Text Ring: Top NEUROSIGHT, Bottom DRUGGED EYE DETECTION -->
+  <text font-family="'JetBrains Mono', 'Fira Code', monospace" font-weight="900" font-size="24" fill="#0f172a" letter-spacing="4">
+    <textPath href="#text-path-top" startOffset="50%" text-anchor="middle">NEUROSIGHT</textPath>
+  </text>
+  <text font-family="'JetBrains Mono', 'Fira Code', monospace" font-weight="900" font-size="24" fill="#f8fafc" letter-spacing="4">
+    <textPath href="#text-path-top" startOffset="50%" text-anchor="middle">NEUROSIGHT</textPath>
+  </text>
+
+  <text font-family="'JetBrains Mono', 'Fira Code', monospace" font-weight="800" font-size="15" fill="#0f172a" letter-spacing="3">
+    <textPath href="#text-path-bottom" startOffset="50%" text-anchor="middle">DRUGGED EYE DETECTION</textPath>
+  </text>
+  <text font-family="'JetBrains Mono', 'Fira Code', monospace" font-weight="800" font-size="15" fill="#cbd5e1" letter-spacing="3">
+    <textPath href="#text-path-bottom" startOffset="50%" text-anchor="middle">DRUGGED EYE DETECTION</textPath>
+  </text>
+
+  <!-- Concentric Neural Target Circles -->
+  <circle cx="250" cy="250" r="150" fill="none" stroke="#7dcfff" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.5" />
+  <circle cx="250" cy="250" r="130" fill="none" stroke="#7aa2f7" stroke-width="1" stroke-dasharray="12 4" opacity="0.6" />
+  <circle cx="250" cy="250" r="110" fill="none" stroke="#bb9af7" stroke-width="1.5" opacity="0.7" />
+
+  <!-- Center Ocular Eye Mesh (Iris & Pupil) -->
+  <g filter="url(#cyan-glow)">
+    <!-- Eye Outer Contour -->
+    <path d="M 120,250 C 170,170 330,170 380,250 C 330,330 170,330 120,250 Z" fill="none" stroke="#7dcfff" stroke-width="3.5" />
+    <path d="M 140,250 C 180,185 320,185 360,250 C 320,315 180,315 140,250 Z" fill="none" stroke="#7aa2f7" stroke-width="1.5" opacity="0.7" />
+
+    <!-- Iris Ring -->
+    <circle cx="250" cy="250" r="65" fill="none" stroke="#7dcfff" stroke-width="3" />
+    <circle cx="250" cy="250" r="45" fill="none" stroke="#bb9af7" stroke-width="2" stroke-dasharray="6 4" />
+
+    <!-- Pupil Core & Shutter Aperture Blades -->
+    <circle cx="250" cy="250" r="28" fill="#020617" stroke="#7dcfff" stroke-width="2" />
+
+    <!-- Aperture Blade Lines -->
+    <line x1="230" y1="230" x2="255" y2="225" stroke="#7dcfff" stroke-width="2" />
+    <line x1="270" y1="230" x2="275" y2="255" stroke="#7dcfff" stroke-width="2" />
+    <line x1="270" y1="270" x2="245" y2="275" stroke="#7dcfff" stroke-width="2" />
+    <line x1="230" y1="270" x2="225" y2="245" stroke="#7dcfff" stroke-width="2" />
+
+    <!-- Neural Mesh Nodes (Left & Right Canthus) -->
+    <g fill="#7dcfff" stroke="#7dcfff">
+      <circle cx="165" cy="240" r="3" />
+      <circle cx="180" cy="225" r="2.5" />
+      <circle cx="180" cy="255" r="2.5" />
+      <circle cx="195" cy="240" r="3" />
+      <line x1="165" y1="240" x2="180" y2="225" stroke-width="1" opacity="0.6" />
+      <line x1="165" y1="240" x2="180" y2="255" stroke-width="1" opacity="0.6" />
+      <line x1="180" y1="225" x2="195" y2="240" stroke-width="1" opacity="0.6" />
+      <line x1="180" y1="255" x2="195" y2="240" stroke-width="1" opacity="0.6" />
+
+      <circle cx="335" cy="240" r="3" />
+      <circle cx="320" cy="225" r="2.5" />
+      <circle cx="320" cy="255" r="2.5" />
+      <circle cx="305" cy="240" r="3" />
+      <line x1="335" y1="240" x2="320" y2="225" stroke-width="1" opacity="0.6" />
+      <line x1="335" y1="240" x2="320" y2="255" stroke-width="1" opacity="0.6" />
+      <line x1="320" y1="225" x2="305" y2="240" stroke-width="1" opacity="0.6" />
+      <line x1="320" y1="255" x2="305" y2="240" stroke-width="1" opacity="0.6" />
+    </g>
+
+    <!-- Calibration Target Alignment Dots -->
+    <circle cx="250" cy="95" r="4" fill="#bb9af7" />
+    <circle cx="250" cy="405" r="4" fill="#bb9af7" />
+    <circle cx="95" cy="250" r="4" fill="#bb9af7" />
+    <circle cx="405" cy="250" r="4" fill="#bb9af7" />
+  </g>
+</svg>
