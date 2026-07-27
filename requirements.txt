@@ -11,3 +11,4 @@ torchvision
 lightgbm
 scikit-learn
 Pillow
+pydantic-settings
